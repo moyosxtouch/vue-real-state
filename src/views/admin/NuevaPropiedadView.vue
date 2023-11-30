@@ -17,7 +17,7 @@ const { handleSubmit } = useForm({
 
 const items = [1, 2, 3, 4, 5];
 const { uploadImage, image, url } = useImage();
-const { zoom, center } = useLocationMap();
+const { zoom, center, pin } = useLocationMap();
 const router = useRouter();
 const db = useFirestore();
 const submit = handleSubmit(async (values) => {
@@ -27,6 +27,7 @@ const submit = handleSubmit(async (values) => {
   const docRef = await addDoc(collection(db, "propiedades"), {
     ...propiedad,
     imagen: url.value,
+    ubicacion: center.value,
   });
   if (docRef.id) {
     router.push({ name: "admin-propiedades" });
@@ -128,7 +129,7 @@ const alberca = useField("alberca", null, {
             :center="center"
             :use-global-leaflet="false"
           >
-            <LMarker :lat-lng="center" draggable />
+            <LMarker :lat-lng="center" draggable @moveend="pin" />
             <LTileLayer
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             ></LTileLayer>
