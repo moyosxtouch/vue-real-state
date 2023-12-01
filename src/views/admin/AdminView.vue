@@ -1,6 +1,6 @@
 <script setup>
 import usePropiedades from "@/composables/usePropiedades";
-const { propiedadesCollection, price } = usePropiedades();
+const { propiedadesCollection, propertyPrice } = usePropiedades();
 console.log(propiedadesCollection);
 </script>
 
@@ -22,7 +22,9 @@ console.log(propiedadesCollection);
         </template>
 
         <v-list-item-title> {{ propiedad.titulo }} </v-list-item-title>
-        <v-list-item-subtitle> {{ propiedad.precio }} </v-list-item-subtitle>
+        <v-list-item-subtitle>
+          {{ propertyPrice(propiedad.precio) }}
+        </v-list-item-subtitle>
 
         <template v-slot:append>
           <v-btn color="info" flat class="mr-2"> Editar </v-btn>
